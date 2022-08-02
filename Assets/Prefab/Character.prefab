@@ -1,0 +1,168 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5329850263845812589
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8257606399684462378}
+  - component: {fileID: 3386377018681259724}
+  - component: {fileID: 2503818809577667562}
+  m_Layer: 0
+  m_Name: Character
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8257606399684462378
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5329850263845812589}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 917.5342, y: 581.68445, z: -2188.8564}
+  m_LocalScale: {x: 1, y: 1.5, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &3386377018681259724
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5329850263845812589}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 7482667652216324306, guid: 83a7f23193f78a64ebdb4671be85960b, type: 3}
+  m_Color: {r: 0.5566038, g: 0.3370232, b: 0.22316661, a: 0}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 0.16, y: 0.16}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!114 &2503818809577667562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5329850263845812589}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ce163b799557c14ca38b9f5c4572238, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  classList: {fileID: 11400000, guid: 6787494d559550548b878f013c55aabe, type: 2}
+  raceList: {fileID: 11400000, guid: 547a776f508786645bcdf602a7a9f4b2, type: 2}
+  spriteRenderer: {fileID: 3386377018681259724}
+  characterName: 
+  genre: 0
+  age: 0
+  race: {fileID: 0}
+  firstClass: {fileID: 0}
+  secondClass: {fileID: 0}
+  specialization: {fileID: 0}
+  firstAbility: {fileID: 0}
+  level: 0
+  hp: 0
+  mp: 0
+  atk: 0
+  mag: 0
+  def: 0
+  mdef: 0
+  evas: 0
+  atkspd: 0
+  critChan: 0
+  critDmg: 0
+  loot: 0
+  toughness: 0
+  spirituality: 0
+  bravery: 0
+  inteligence: 0
+  faith: 0
+  evilness: 0
+  dexterity: 0
+  agility: 0
+  luck: 0
+  headEquipment: {fileID: 0}
+  chestEquipment: {fileID: 0}
+  legEquipment: {fileID: 0}
+  footEquipment: {fileID: 0}
+  accessoryOneEquipment: {fileID: 0}
+  accessoryTwoEquipment: {fileID: 0}
+  leftHandEquipment: {fileID: 0}
+  rightHandEquipment: {fileID: 0}
+  canUseAccessoryTwo: 0
+  canUseBothHands: 0
+  poisonResistance: 2
+  stunResistance: 2
+  confusionResistance: 2
+  paralyseResistance: 2
+  bleedResistance: 2
+  fireAffinity: 2
+  iceAffinity: 2
+  thunderAffinity: 2
+  earthAffinity: 2
+  windAffinity: 2
+  darknessAffinity: 2
+  lightAffinity: 2
+  swordProficiency: 6
+  greatSwordProficiency: 6
+  lanceProficiency: 6
+  katanaProficiency: 6
+  gloveProficiency: 6
+  axeProficiency: 6
+  bowProficiency: 6
+  crossbowProficiency: 6
+  rodProficiency: 6
+  grimoryProficiency: 6
+  staffProficiency: 6
+  daggerProficiency: 6
+  dualBladeProficiency: 6
+  shieldProficiency: 6
+  greatShieldProficiency: 6

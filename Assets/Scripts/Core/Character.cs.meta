@@ -1,0 +1,27 @@
+fileFormatVersion: 2
+guid: 7ce163b799557c14ca38b9f5c4572238
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - classList: {fileID: 11400000, guid: 6787494d559550548b878f013c55aabe, type: 2}
+  - raceList: {fileID: 11400000, guid: 547a776f508786645bcdf602a7a9f4b2, type: 2}
+  - sprite: {instanceID: 0}
+  - race: {instanceID: 0}
+  - firstClass: {instanceID: 0}
+  - secondClass: {instanceID: 0}
+  - specialization: {instanceID: 0}
+  - firstAbility: {instanceID: 0}
+  - headEquipment: {instanceID: 0}
+  - chestEquipment: {instanceID: 0}
+  - legEquipment: {instanceID: 0}
+  - footEquipment: {instanceID: 0}
+  - accessoryOneEquipment: {instanceID: 0}
+  - accessoryTwoEquipment: {instanceID: 0}
+  - leftHandEquipment: {instanceID: 0}
+  - rightHandEquipment: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

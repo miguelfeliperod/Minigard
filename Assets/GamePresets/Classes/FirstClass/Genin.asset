@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00b5c3d20b630db41a92733cf8d66cc0, type: 3}
+  m_Name: Genin
+  m_EditorClassIdentifier: 
+  className: Genin
+  classType: 5
+  firstAbilityChoice: {fileID: 11400000, guid: fca3fcb761d4dfb48857843128345578, type: 2}
+  secondAbilityChoice: {fileID: 11400000, guid: b90b7a43ad7202042b97eb9f54529cd4, type: 2}

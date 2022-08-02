@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00b5c3d20b630db41a92733cf8d66cc0, type: 3}
+  m_Name: Healer
+  m_EditorClassIdentifier: 
+  className: Healer
+  classType: 4
+  firstAbilityChoice: {fileID: 11400000, guid: b6f4ea64f503b334cb5be8af37167394, type: 2}
+  secondAbilityChoice: {fileID: 11400000, guid: 17fba77ceee67fd4fb469c5872531444, type: 2}
