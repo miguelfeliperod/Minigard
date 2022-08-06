@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class NewCharacterWindow : MonoBehaviour
 {
     //Character Description
+    [SerializeField] TextMeshProUGUI seed;
     [SerializeField] TextMeshProUGUI characterName;
     [SerializeField] TextMeshProUGUI age;
     [SerializeField] TextMeshProUGUI genre;
@@ -32,17 +33,15 @@ public class NewCharacterWindow : MonoBehaviour
 
     //Natural Stats
     [SerializeField] TextMeshProUGUI level;
-    [SerializeField] TextMeshProUGUI hp;
-    [SerializeField] TextMeshProUGUI mp;
-    [SerializeField] TextMeshProUGUI atk;
-    [SerializeField] TextMeshProUGUI mag;
-    [SerializeField] TextMeshProUGUI def;
-    [SerializeField] TextMeshProUGUI mdef;
-    [SerializeField] TextMeshProUGUI evas;
-    [SerializeField] TextMeshProUGUI atkspd;
-    [SerializeField] TextMeshProUGUI critChan;
-    [SerializeField] TextMeshProUGUI critDmg;
-    [SerializeField] TextMeshProUGUI loot;
+    [SerializeField] TextMeshProUGUI toughness;
+    [SerializeField] TextMeshProUGUI spirituality;
+    [SerializeField] TextMeshProUGUI bravery;
+    [SerializeField] TextMeshProUGUI inteligence;
+    [SerializeField] TextMeshProUGUI faith;
+    [SerializeField] TextMeshProUGUI evilness;
+    [SerializeField] TextMeshProUGUI dexterity;
+    [SerializeField] TextMeshProUGUI agility;
+    [SerializeField] TextMeshProUGUI luck;
 
 
     //Weapon Proficiency
@@ -78,8 +77,15 @@ public class NewCharacterWindow : MonoBehaviour
     [SerializeField] TextMeshProUGUI paralyseResistance;
     [SerializeField] TextMeshProUGUI bleedResistance;
 
+    [SerializeField] Color fullRed;
+    [SerializeField] Color fullOrange;
+    [SerializeField] Color fullYellow;
+    [SerializeField] Color lightGreen;
+    [SerializeField] Color fullGreen;
+
     void Start()
     {
+        seed.text = "";
         characterName.text = "";
         age.text = "";
         genre.text = "";
@@ -100,17 +106,15 @@ public class NewCharacterWindow : MonoBehaviour
 
 
         level.text = "";
-        hp.text = "";
-        mp.text = "";
-        atk.text = "";
-        mag.text = "";
-        def.text = "";
-        mdef.text = "";
-        evas.text = "";
-        atkspd.text = "";
-        critChan.text = "";
-        critDmg.text = "";
-        loot.text = "";
+        toughness.text = "";
+        spirituality.text = "";
+        bravery.text = "";
+        inteligence.text = "";
+        faith.text = "";
+        evilness.text = "";
+        dexterity.text = "";
+        agility.text = "";
+        luck.text = "";
 
         nameImage.text = "";
         raceImage.text = "";
@@ -154,7 +158,8 @@ public class NewCharacterWindow : MonoBehaviour
 
     public void UploadCharacterInfosClick(Character newCharacter)
     {
-        characterName.text = newCharacter.characterName?.ToString();
+        seed.text = newCharacter.seed;
+        characterName.text = newCharacter.battlerName?.ToString();
         
         age.text = newCharacter.age == 0 ? "Lost count" : newCharacter.age.ToString();
         genre.text = newCharacter.genre.ToString();
@@ -165,7 +170,7 @@ public class NewCharacterWindow : MonoBehaviour
 
         image.sprite = newCharacter.spriteRenderer.sprite;
         image.color = newCharacter.spriteRenderer.color;
-        nameImage.text = newCharacter.characterName?.ToString();
+        nameImage.text = newCharacter.battlerName?.ToString();
         raceImage.text = newCharacter.race.name;
         jobImage.text = newCharacter.firstClass.name;
         levelImage.text = "Lvl: " + newCharacter.level.ToString();
@@ -180,47 +185,142 @@ public class NewCharacterWindow : MonoBehaviour
         acc2.text = newCharacter.accessoryTwoEquipment?.ToString();
 
         level.text = newCharacter.level.ToString();
-        hp.text = newCharacter.hp.ToString();
-        mp.text = newCharacter.mp.ToString();
-        atk.text = newCharacter.atk.ToString();
-        mag.text = newCharacter.mag.ToString();
-        def.text = newCharacter.def.ToString();
-        mdef.text = newCharacter.mdef.ToString();
-        evas.text = newCharacter.evas.ToString();
-        atkspd.text = newCharacter.atkspd.ToString();
-        critChan.text = newCharacter.critChan.ToString();
-        critDmg.text = newCharacter.critDmg.ToString();
-        loot.text = newCharacter.loot.ToString();
+
+        toughness.text = newCharacter.toughness.ToString();
+        toughness.color = SetStatsNumberColor((int)newCharacter.toughness);
+        spirituality.text = newCharacter.spirituality.ToString();
+        spirituality.color = SetStatsNumberColor((int)newCharacter.spirituality);
+        bravery.text = newCharacter.bravery.ToString();
+        bravery.color = SetStatsNumberColor((int)newCharacter.bravery);
+        inteligence.text = newCharacter.inteligence.ToString();
+        inteligence.color = SetStatsNumberColor((int)newCharacter.inteligence);
+        faith.text = newCharacter.faith.ToString();
+        faith.color = SetStatsNumberColor((int)newCharacter.faith);
+        evilness.text = newCharacter.evilness.ToString();
+        evilness.color = SetStatsNumberColor((int)newCharacter.evilness);
+        dexterity.text = newCharacter.dexterity.ToString();
+        dexterity.color = SetStatsNumberColor((int)newCharacter.dexterity);
+        agility.text = newCharacter.agility.ToString();
+        agility.color = SetStatsNumberColor((int)newCharacter.agility);
+        luck.text = newCharacter.luck.ToString();
+        luck.color = SetStatsNumberColor((int)newCharacter.luck);
 
         swordProficiency.text = newCharacter.swordProficiency.ToString();
+        swordProficiency.color = SetProficiencyColor(newCharacter.swordProficiency);
         greatSwordProficiency.text = newCharacter.greatSwordProficiency.ToString();
+        greatSwordProficiency.color = SetProficiencyColor(newCharacter.greatSwordProficiency);
         lanceProficiency.text = newCharacter.lanceProficiency.ToString();
+        lanceProficiency.color = SetProficiencyColor(newCharacter.lanceProficiency);
         katanaProficiency.text = newCharacter.katanaProficiency.ToString();
+        katanaProficiency.color = SetProficiencyColor(newCharacter.katanaProficiency);
         gloveProficiency.text = newCharacter.gloveProficiency.ToString();
+        gloveProficiency.color = SetProficiencyColor(newCharacter.gloveProficiency);
         axeProficiency.text = newCharacter.axeProficiency.ToString();
+        axeProficiency.color = SetProficiencyColor(newCharacter.axeProficiency);
         bowProficiency.text = newCharacter.bowProficiency.ToString();
+        bowProficiency.color = SetProficiencyColor(newCharacter.bowProficiency);
         crossbowProficiency.text = newCharacter.crossbowProficiency.ToString();
+        crossbowProficiency.color = SetProficiencyColor(newCharacter.crossbowProficiency);
         rodProficiency.text = newCharacter.rodProficiency.ToString();
+        rodProficiency.color = SetProficiencyColor(newCharacter.rodProficiency);
         grimoryProficiency.text = newCharacter.grimoryProficiency.ToString();
+        grimoryProficiency.color = SetProficiencyColor(newCharacter.grimoryProficiency);
         staffProficiency.text = newCharacter.staffProficiency.ToString();
+        staffProficiency.color = SetProficiencyColor(newCharacter.staffProficiency);
         daggerProficiency.text = newCharacter.daggerProficiency.ToString();
+        daggerProficiency.color = SetProficiencyColor(newCharacter.daggerProficiency);
         dualBladeProficiency.text = newCharacter.dualBladeProficiency.ToString();
+        dualBladeProficiency.color = SetProficiencyColor(newCharacter.dualBladeProficiency);
         shieldProficiency.text = newCharacter.shieldProficiency.ToString();
+        shieldProficiency.color = SetProficiencyColor(newCharacter.shieldProficiency);
         greatShieldProficiency.text = newCharacter.greatShieldProficiency.ToString();
+        greatShieldProficiency.color = SetProficiencyColor(newCharacter.greatShieldProficiency);
 
         fireAffinity.text = newCharacter.fireAffinity.ToString();
+        fireAffinity.color = SetAffinityColor(newCharacter.fireAffinity);
         iceAffinity.text = newCharacter.iceAffinity.ToString();
+        iceAffinity.color = SetAffinityColor(newCharacter.iceAffinity);
         thunderAffinity.text = newCharacter.thunderAffinity.ToString();
+        thunderAffinity.color = SetAffinityColor(newCharacter.thunderAffinity);
         earthAffinity.text = newCharacter.earthAffinity.ToString();
+        earthAffinity.color = SetAffinityColor(newCharacter.earthAffinity);
         windAffinity.text = newCharacter.windAffinity.ToString();
+        windAffinity.color = SetAffinityColor(newCharacter.windAffinity);
         darknessAffinity.text = newCharacter.darknessAffinity.ToString();
+        darknessAffinity.color = SetAffinityColor(newCharacter.darknessAffinity);
         lightAffinity.text = newCharacter.lightAffinity.ToString();
+        lightAffinity.color = SetAffinityColor(newCharacter.lightAffinity);
 
         poisonResistance.text = newCharacter.poisonResistance.ToString();
+        poisonResistance.color = SetAffinityColor(newCharacter.poisonResistance);
         stunResistance.text = newCharacter.stunResistance.ToString();
+        stunResistance.color = SetAffinityColor(newCharacter.stunResistance);
         confusionResistance.text = newCharacter.confusionResistance.ToString();
+        confusionResistance.color = SetAffinityColor(newCharacter.confusionResistance);
         paralyseResistance.text = newCharacter.paralyseResistance.ToString();
+        paralyseResistance.color = SetAffinityColor(newCharacter.paralyseResistance);
         bleedResistance.text = newCharacter.bleedResistance.ToString();
-
+        bleedResistance.color = SetAffinityColor(newCharacter.bleedResistance);
     }
+
+    Color SetProficiencyColor(Proficiency proficiency)
+    {
+        switch (proficiency)
+        {
+            case Proficiency.S:
+                return fullGreen;
+            case Proficiency.A:
+                return lightGreen;
+            case Proficiency.B:
+                return lightGreen;
+            case Proficiency.C:
+                return fullYellow;
+            case Proficiency.D:
+                return fullOrange;
+            case Proficiency.E:
+                return fullOrange;
+            case Proficiency.F:
+                return fullRed;
+        }
+        return new Color(0.6f, 0.6f, 0.0f);
+    }
+
+    Color SetAffinityColor(Affinity affinity)
+    {
+        switch (affinity)
+        {
+            case Affinity.Impressive:
+                return fullGreen;
+            case Affinity.High:
+                return lightGreen;
+            case Affinity.Neutral:
+                return fullYellow;
+            case Affinity.Low:
+                return fullOrange;
+            case Affinity.Poor:
+                return fullRed;
+        }
+        return new Color(0.5f, 0.5f, 0.0f);
+    }
+    Color SetStatsNumberColor(int value)
+    {
+        switch (value)
+        {
+            case 1:
+            case 2:
+                return fullRed;
+            case 3:
+            case 4:
+                return fullOrange;
+            case 5:
+            case 6:
+                return fullYellow;
+            case 7:
+            case 8:
+                return lightGreen;
+            default:
+                return fullGreen;
+        }
+    }
+
 }

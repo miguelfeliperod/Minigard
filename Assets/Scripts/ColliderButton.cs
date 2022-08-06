@@ -1,12 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class ColliderButton : MonoBehaviour
 {
     [SerializeField] Collider2D collider2d;
     [SerializeField] SpriteRenderer rend;
-    [SerializeField] GameObject canvas;
+    [SerializeField] GameObject screen;
 
     Color isHighlighted;
     Color isNotHighlighted;
@@ -39,13 +38,15 @@ public class ColliderButton : MonoBehaviour
 
     void OnMouseOver()
     {
-        if(transform.localScale.x < maxScaleSize.x && transform.localScale.y < maxScaleSize.y)
-            transform.localScale += upscaleFactor * Time.deltaTime;
+        if (transform.localScale.x < maxScaleSize.x && transform.localScale.y < maxScaleSize.y)
+        transform.localScale += upscaleFactor * Time.deltaTime;
     }
 
     private void OnMouseUp()
     {
-        if(canvas != null)
-            canvas.SetActive(true); 
+        if (EventSystem.current.IsPointerOverGameObject()) return;
+
+        if (screen != null)
+            screen.SetActive(true); 
     }
 }

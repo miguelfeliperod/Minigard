@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    GameData gameData;
+    public PartyManager partyManager = new PartyManager();
     public static GameManager Instance;
 
     [SerializeField] Character prefabCharacter;
@@ -15,6 +15,9 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] RacesList raceList;
     public RacesList RaceList { get => raceList; }
+
+    public GameObject playerCharacters;
+
 
     void Awake()
     {
