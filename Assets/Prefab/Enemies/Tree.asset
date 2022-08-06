@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7abc57e3f0aa17e4e874cf1c2fafe4ea, type: 3}
+  m_Name: Tree
+  m_EditorClassIdentifier: 
+  battlerName: Tree
+  firstAbility: {fileID: 11400000, guid: c7bc704113489c14b8df2ad05b07822c, type: 2}
+  secondAbility: {fileID: 0}
+  thirdAbility: {fileID: 0}
+  bodyColor: {r: 0.13349375, g: 0.6603774, b: 0.09656461, a: 1}
+  sprite: {fileID: -2413806693520163455, guid: 39013e77c54f3454a8c7d89f51f4145d, type: 3}
+  level: 1
+  toughness: 5
+  spirituality: 5
+  bravery: 5
+  inteligence: 5
+  faith: 5
+  evilness: 5
+  dexterity: 5
+  agility: 5
+  luck: 5
+  poisonResistance: 2
+  stunResistance: 2
+  confusionResistance: 2
+  paralyseResistance: 2
+  bleedResistance: 2
+  fireAffinity: 2
+  iceAffinity: 2
+  thunderAffinity: 2
+  earthAffinity: 2
+  windAffinity: 2
+  darknessAffinity: 2
+  lightAffinity: 2

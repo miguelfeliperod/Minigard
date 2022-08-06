@@ -45,8 +45,8 @@ public class EditPartySlotManager : MonoBehaviour
             recruit.character = character;
             recruit.name = character.battlerName;
             recruit.transform.SetParent(charactersList.transform);
-            recruit.image.sprite = character.spriteRenderer.sprite;
-            recruit.image.color = character.spriteRenderer.color;
+            recruit.image.sprite = character.sprite;
+            recruit.image.color = character.bodyColor;
             recruit.rectTransform.anchoredPosition = new Vector2(40, -40) + new Vector2(150 * (i % 7), -50 - 200 * (i / 7));
 
             recruit.number.text = i.ToString();

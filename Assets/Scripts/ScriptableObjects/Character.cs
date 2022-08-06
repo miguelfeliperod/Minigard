@@ -1,15 +1,12 @@
-using System;
 using UnityEngine;
 
+[CreateAssetMenu(fileName = "Character", menuName = "ScriptableObjects/Battle/Character")]
 public class Character : Battler
 {
     const int MinStatsPointsToDistribute = 1;
     const int MaxStatsPointsToDistribute = 11;
     const int InitialLevel = 1;
     const string glyphs = "abcdefghijklmnopqrstuvwxyz0123456789";
-
-    [SerializeField] ClassesList classList;
-    [SerializeField] RacesList raceList;
 
     public string seed;
 
@@ -50,11 +47,6 @@ public class Character : Battler
     public Proficiency dualBladeProficiency = Proficiency.F;
     public Proficiency shieldProficiency = Proficiency.F;
     public Proficiency greatShieldProficiency = Proficiency.F;
-
-    void Start()
-    {
-        InitStats();
-    }
 
     void GenerateSeed()
     {
@@ -103,16 +95,18 @@ public class Character : Battler
 
     void RandomizeClass()
     {
-        firstClass = classList.firstClassList[UnityEngine.Random.Range(0, classList.firstClassList.Count)];
+        var classList = GameManager.Instance.ClassList.firstClassList;
+        firstClass = classList[UnityEngine.Random.Range(0, classList.Count)];
         firstAbility = firstClass.FirstAbilityChoice;
         secondAbility = firstClass.SecondAbilityChoice;
     }
 
     void RandomizeRaceColorAndGenre()
     {
-        race = raceList.racesList[UnityEngine.Random.Range(0, raceList.racesList.Count)];
+        var racesList = GameManager.Instance.RaceList.racesList;
+        race = racesList[UnityEngine.Random.Range(0, racesList.Count)];
         
-        spriteRenderer.color = race.GetRandomBodyColor();
+        bodyColor = race.GetRandomBodyColor();
         
         genre = UnityEngine.Random.value < 0.5 ? Genre.Male : Genre.Female;
         

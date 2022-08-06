@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Trees
   m_EditorClassIdentifier: 
   enemiesList:
-  - {fileID: 6288675644718555788, guid: 419f0b20a6d49e74e8d1bb7d416b8cb3, type: 3}
-  - {fileID: 6288675644718555788, guid: 419f0b20a6d49e74e8d1bb7d416b8cb3, type: 3}
-  - {fileID: 6288675644718555788, guid: 419f0b20a6d49e74e8d1bb7d416b8cb3, type: 3}
-  - {fileID: 6288675644718555788, guid: 419f0b20a6d49e74e8d1bb7d416b8cb3, type: 3}
-  - {fileID: 6288675644718555788, guid: 419f0b20a6d49e74e8d1bb7d416b8cb3, type: 3}
+  - {fileID: 11400000, guid: 3c65c3e177fc93c4597940fcb75c219e, type: 2}
+  - {fileID: 11400000, guid: 3c65c3e177fc93c4597940fcb75c219e, type: 2}
+  - {fileID: 11400000, guid: 3c65c3e177fc93c4597940fcb75c219e, type: 2}
+  - {fileID: 11400000, guid: 3c65c3e177fc93c4597940fcb75c219e, type: 2}
+  - {fileID: 11400000, guid: 3c65c3e177fc93c4597940fcb75c219e, type: 2}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}

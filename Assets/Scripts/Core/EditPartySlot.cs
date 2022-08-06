@@ -46,8 +46,8 @@ public class EditPartySlot : MonoBehaviour
 
     public void RefreshTexts()
     {
-        image.sprite = character.spriteRenderer.sprite;
-        image.color = character.spriteRenderer.color;
+        image.sprite = character.sprite;
+        image.color = character.bodyColor;
         nameText.text = character.battlerName;
         jobText.text = character.firstClass.name;
         lvlText.text = "Lvl:" + character.level.ToString();

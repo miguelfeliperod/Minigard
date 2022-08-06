@@ -59,6 +59,7 @@ public class BattleManager : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
         countdown.text = "FIGHT!";
         yield return new WaitForSeconds(1.0f);
+        countdown.text = "";
         fightIsOn = true;
     }
     

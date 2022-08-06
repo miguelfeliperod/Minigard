@@ -21,28 +21,24 @@ public class Guild : MonoBehaviour
 
     public void OnGenerateRandomRecruitClick()
     {
-        if (character != null)
-            Destroy(character.gameObject);
-        character = Instantiate(gameManager.PrefabCharacter);
+        character = ScriptableObject.CreateInstance<Character>();
         character.RandomizeCharacter();
+        character.name = character.battlerName;
+        character.sprite = GameManager.Instance.SpritesReferences.allCharacterBodySprite;
         recruitWindow.UploadCharacterInfosClick(character);
     }
 
     public void OnGenerateSeedRecruitClick()
     {
-        if (character != null)
-            Destroy(character.gameObject);
-        character = Instantiate(gameManager.PrefabCharacter);
+        character = ScriptableObject.CreateInstance<Character>();
         character.RandomizeCharacter(InputField.text);
+        character.name = character.battlerName;
         recruitWindow.UploadCharacterInfosClick(character);
     }
 
     public void OnRecruitClick()
     {
-        character.gameObject.name = character.battlerName;
         gameManager.partyManager.RecruitedList.Add(character);
-        character.transform.SetParent(gameManager.playerCharacters.transform);
-        character = null;
         OnGenerateRandomRecruitClick();
     }
 }

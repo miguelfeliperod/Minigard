@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+[CreateAssetMenu(fileName = "Enemy", menuName = "ScriptableObjects/Battle/Enemy")]
 public class Enemy : Battler
 {
     protected override Battler GetRandomTarget()

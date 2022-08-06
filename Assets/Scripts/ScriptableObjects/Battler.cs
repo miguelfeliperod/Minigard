@@ -1,7 +1,8 @@
 using System;
 using UnityEngine;
 
-public abstract class Battler : MonoBehaviour
+[CreateAssetMenu(fileName = "Battler", menuName = "ScriptableObjects/Battle/Battler")]
+public abstract class Battler : ScriptableObject
 {
     public string battlerName;
 
@@ -9,7 +10,8 @@ public abstract class Battler : MonoBehaviour
     public Skill secondAbility;
     public Skill thirdAbility;
 
-    public SpriteRenderer spriteRenderer;
+    public Color bodyColor;
+    public Sprite sprite;
 
     // Final Stats
     public float level;
@@ -67,11 +69,6 @@ public abstract class Battler : MonoBehaviour
 
     public const int MinHP = 20;
     public const int MinMP = 20;
-
-    private void Start()
-    {
-        InitStats();
-    }
 
     void Update()
     {
