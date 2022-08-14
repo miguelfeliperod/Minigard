@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 [CreateAssetMenu(fileName = "Character", menuName = "ScriptableObjects/Battle/Character")]
 public class Character : Battler
@@ -21,15 +23,24 @@ public class Character : Battler
 
     public Head headEquipment = null;
     public Chest chestEquipment = null;
-    public Leg legEquipment = null;
     public Foot footEquipment = null;
     public Accessory accessoryOneEquipment = null;
     public Accessory accessoryTwoEquipment = null;
-    public HandEquipment leftHandEquipment = null;
-    public HandEquipment rightHandEquipment = null;
+    
+    public HandEquipment mainHandEquipment = null;
+    public HandEquipment subHandEquipment = null;
 
-    public bool canUseAccessoryTwo = false;
-    public bool canUseBothHands = false;
+    public bool canEquipAccessoryTwo = false;
+    public bool canEquipBothHands = false;
+
+    public override bool HasSubWeapon()
+    {
+        if(subHandEquipment != null)
+        {
+            return subHandEquipment.BasicAttackPattern != TargetPattern.None;
+        }
+        return false;
+    }
 
     // WeaponType afinities
     public Proficiency swordProficiency = Proficiency.F;
@@ -52,7 +63,7 @@ public class Character : Battler
     {
         seed = "";
         int seedRange = UnityEngine.Random.Range(4, 16);
-        for (int i = 0; i < seedRange; i++)
+        for (int seedCharacterIndex = 0; seedCharacterIndex < seedRange; seedCharacterIndex++)
             seed += glyphs[UnityEngine.Random.Range(0, glyphs.Length)];
     }
 
@@ -68,6 +79,9 @@ public class Character : Battler
         RandomizeStatusResistances();
         RandomizeElementalAfinities();
         RandomizeWeaponProficiencies();
+        RandomizeWeaponProficiencies();
+        SetInitialEquipment();
+
     }
 
     public void RandomizeCharacter(string seed)
@@ -82,6 +96,7 @@ public class Character : Battler
         RandomizeStatusResistances();
         RandomizeElementalAfinities();
         RandomizeWeaponProficiencies();
+        SetInitialEquipment();
     }
 
     void RandomizeName()
@@ -166,8 +181,10 @@ public class Character : Battler
             return Affinity.Neutral;
         else if (value < 90)
             return Affinity.High;
-        else
+        else if (value < 97)
             return Affinity.Impressive;
+        else
+            return Affinity.Natural;
     }
 
     void RandomizeElementalAfinities()
@@ -181,6 +198,39 @@ public class Character : Battler
         lightAffinity = GetRandomElementAffinity();
     }
 
+    void SetInitialEquipment()
+    {
+        switch (UnityEngine.Random.Range(0, 5))
+        {
+            case 0:
+                mainHandEquipment = CreateInstance<Axe>();
+                mainHandEquipment.element = Element.Fire;
+                break;
+            case 1:
+                mainHandEquipment = CreateInstance<Bow>();
+                mainHandEquipment.element = Element.Ice;
+                break;
+            case 2:
+                mainHandEquipment = CreateInstance<Crossbow>();
+                mainHandEquipment.element = Element.Wind;
+                break;
+            case 3:
+                mainHandEquipment = CreateInstance<DualBlade>();
+                mainHandEquipment.element = Element.Thunder;
+                break;
+            case 4:
+                mainHandEquipment = CreateInstance<Lance>();
+                mainHandEquipment.element = Element.Earth;
+                break;
+            default:
+                mainHandEquipment = CreateInstance<Sword>();
+                mainHandEquipment.element = Element.Darkness;
+                break;
+        }
+       
+        Debug.Log(battlerName + " took a " + mainHandEquipment.WeaponType.ToString() + " as weapon");
+    }
+
     Affinity GetRandomElementAffinity()
     {
         var value = UnityEngine.Random.Range(0, 100);
@@ -192,8 +242,10 @@ public class Character : Battler
             return Affinity.Neutral;
         else if (value < 90)
             return Affinity.High;
-        else
+        else if (value < 97)
             return Affinity.Impressive;
+        else
+            return Affinity.Natural;
     }
 
     void RandomizeWeaponProficiencies()
@@ -234,7 +286,7 @@ public class Character : Battler
             return Proficiency.S;
     }
 
-    float GetWeaponTypeAffinityModifier(WeaponType WeaponType)
+    float GetWeaponTypeProficiencyModifier(WeaponType WeaponType)
     {
         switch (WeaponType)
         {
@@ -295,8 +347,66 @@ public class Character : Battler
                 return 0.5f;
         }
     }
-    protected override Battler GetRandomTarget()
+
+    public override Battler GetRandomTarget()
     {
         return BattleManager.Instance.GetRandomEnemy();
+    }
+
+    public override void InitStats()
+    {
+        base.InitStats();
+    }
+
+    public override void ExecuteBasicAttack(List<Battler> charactersList, List<Battler> enemyList, bool isSubWeapon = false)
+    {
+        Action damage = new();
+        HandEquipment weapon = GetWeapon(isSubWeapon);
+
+        List<Battler> targets = DetermineActionTargets(charactersList, enemyList, weapon.BasicAttackPattern, weapon.TargetTeam, weapon.Range, weapon.MaxQuantity);
+        damage.isCritical = SetDamageIsCritical();
+        damage.type = DamageType.Physical;
+        damage.element = weapon.element;
+        damage.statusAilment = weapon.statusAilment;
+        damage.statusAilmentChance = GetStatusAilmentAffinityModifier(weapon.statusAilment);
+
+        damage.value = SetBasicAttackDamage(damage, weapon);
+
+        if (damage.isCritical)
+        {
+            damage.value *= GetCriticalDamageMultiplier();
+        }
+        foreach(Enemy enemy in targets)
+        {
+            enemy.ReceiveAction(damage);
+            Debug.Log(this.battlerName + " attacked " + enemy.battlerName + " for " + damage.value + " damage!");
+        }
+    }
+
+    HandEquipment GetWeapon(bool isSubWeapon = false)
+    {
+        if (isSubWeapon)
+            return subHandEquipment;
+        else
+            return mainHandEquipment;
+    }
+
+    public override void ExecuteFirstSkill(List<Battler> charactersList, List<Battler> monstersList)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void ExecuteSecondSkill(List<Battler> charactersList, List<Battler> monstersList)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override int SetBasicAttackDamage(Action damage, HandEquipment weapon)
+    {
+        int totalDamage = GetBaseDamageValue(DamageType.Physical);
+
+        return  (int)(totalDamage * totalDamage
+            * (1 + GetElementAffinityModifier(damage.element))
+            * GetWeaponTypeProficiencyModifier(weapon.WeaponType));
     }
 }

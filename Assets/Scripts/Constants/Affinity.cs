@@ -8,5 +8,6 @@ public enum Affinity
     Low,
     Neutral,
     High,
-    Impressive
+    Impressive,
+    Natural
 }

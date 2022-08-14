@@ -15,6 +15,7 @@ public class Guild : MonoBehaviour
         {
             OnGenerateRandomRecruitClick();
             OnRecruitClick();
+            recruitWindow.UploadCharacterInfosClick(character);
             GameManager.Instance.partyManager.FrontSlot.Character = GameManager.Instance.partyManager.RecruitedList[0];
         }
     }

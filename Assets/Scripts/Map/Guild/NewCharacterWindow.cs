@@ -26,7 +26,6 @@ public class NewCharacterWindow : MonoBehaviour
     [SerializeField] TextMeshProUGUI lHand;
     [SerializeField] TextMeshProUGUI head;
     [SerializeField] TextMeshProUGUI chest;
-    [SerializeField] TextMeshProUGUI legs;
     [SerializeField] TextMeshProUGUI foot;
     [SerializeField] TextMeshProUGUI acc1;
     [SerializeField] TextMeshProUGUI acc2;
@@ -83,79 +82,6 @@ public class NewCharacterWindow : MonoBehaviour
     [SerializeField] Color lightGreen;
     [SerializeField] Color fullGreen;
 
-    void Start()
-    {
-        seed.text = "";
-        characterName.text = "";
-        age.text = "";
-        genre.text = "";
-        race.text = "";
-        job.text = "";
-        ability1.text = "";
-        ability2.text = "";
-
-
-        rHand.text = "";
-        lHand.text = "";
-        head.text = "";
-        chest.text = "";
-        legs.text = "";
-        foot.text = "";
-        acc1.text = "";
-        acc2.text = "";
-
-
-        level.text = "";
-        toughness.text = "";
-        spirituality.text = "";
-        bravery.text = "";
-        inteligence.text = "";
-        faith.text = "";
-        evilness.text = "";
-        dexterity.text = "";
-        agility.text = "";
-        luck.text = "";
-
-        nameImage.text = "";
-        raceImage.text = "";
-        jobImage.text = "";
-        levelImage.text = "";
-
-        swordProficiency.text = "";
-        greatSwordProficiency.text = "";
-        lanceProficiency.text = "";
-        katanaProficiency.text = "";
-        gloveProficiency.text = "";
-        axeProficiency.text = "";
-        bowProficiency.text = "";
-        crossbowProficiency.text = "";
-        rodProficiency.text = "";
-        grimoryProficiency.text = "";
-        staffProficiency.text = "";
-        daggerProficiency.text = "";
-        dualBladeProficiency.text = "";
-        shieldProficiency.text = "";
-        greatShieldProficiency.text = "";
-
-
-        fireAffinity.text = "";
-        iceAffinity.text = "";
-        thunderAffinity.text = "";
-        earthAffinity.text = "";
-        windAffinity.text = "";
-        darknessAffinity.text = "";
-        lightAffinity.text = "";
-
-
-        poisonResistance.text = "";
-        stunResistance.text = "";
-        confusionResistance.text = "";
-        paralyseResistance.text = "";
-        bleedResistance.text = "";
-
-
-    }
-
     public void UploadCharacterInfosClick(Character newCharacter)
     {
         seed.text = newCharacter.seed;
@@ -175,11 +101,10 @@ public class NewCharacterWindow : MonoBehaviour
         jobImage.text = newCharacter.firstClass.name;
         levelImage.text = "Lvl: " + newCharacter.level.ToString();
 
-        rHand.text = newCharacter.rightHandEquipment?.ToString();
-        lHand.text = newCharacter.leftHandEquipment?.ToString();
+        rHand.text = newCharacter.mainHandEquipment?.ToString();
+        lHand.text = newCharacter.subHandEquipment?.ToString();
         head.text = newCharacter.headEquipment?.ToString();
         chest.text = newCharacter.chestEquipment?.ToString();
-        legs.text = newCharacter.legEquipment?.ToString();
         foot.text = newCharacter.footEquipment?.ToString();
         acc1.text = newCharacter.accessoryOneEquipment?.ToString();
         acc2.text = newCharacter.accessoryTwoEquipment?.ToString();
@@ -289,6 +214,8 @@ public class NewCharacterWindow : MonoBehaviour
     {
         switch (affinity)
         {
+            case Affinity.Natural:
+                return fullGreen;
             case Affinity.Impressive:
                 return fullGreen;
             case Affinity.High:

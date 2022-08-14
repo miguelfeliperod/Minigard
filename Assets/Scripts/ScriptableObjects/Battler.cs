@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Battler", menuName = "ScriptableObjects/Battle/Battler")]
@@ -13,30 +14,35 @@ public abstract class Battler : ScriptableObject
     public Color bodyColor;
     public Sprite sprite;
 
+    public delegate void ReceiveDamageDelegate(int value, Color color);
+    public event ReceiveDamageDelegate ReceiveDamageEvent;
+
+    public abstract bool HasSubWeapon();
+
     // Final Stats
-    public float level;
-    float maxHp;
-    float maxMp;
-    float atk;
-    float mag;
-    float def;
-    float mdef;
-    float evas;
-    float atkspd;
-    float critChan;
-    float critDmg;
-    float loot;
+    public int level;
+    public int maxHp;
+    public int maxMp;
+    public int atk;
+    public int mag;
+    public int def;
+    public int mdef;
+    public int evas;
+    public int atkspd;
+    public int critChan;
+    public int critDmg;
+    public int loot;
 
     // Nature stats
-    public float toughness;    // hp + def
-    public float spirituality; // mp + mdef
-    public float bravery;      // atk + hp
-    public float inteligence;  // mag + mp
-    public float faith;        // mag + mdef
-    public float evilness;     // mag + def
-    public float dexterity;    // crit.chance + crit.dmg
-    public float agility;      // atk.spd + evas
-    public float luck;         // evas + loot
+    public int toughness;    // hp + def
+    public int spirituality; // mp + mdef
+    public int bravery;      // atk + hp
+    public int inteligence;  // mag + mp
+    public int faith;        // mag + mdef
+    public int evilness;     // mag + def
+    public int dexterity;    // crit.chance + crit.dmg
+    public int agility;      // atk.spd + evas
+    public int luck;         // evas + loot
 
     // Status Ailment afinities
     public Affinity poisonResistance = Affinity.Neutral;
@@ -54,37 +60,26 @@ public abstract class Battler : ScriptableObject
     public Affinity darknessAffinity = Affinity.Neutral;
     public Affinity lightAffinity = Affinity.Neutral;
 
-    private float atkCooldown;
-    private float firstAbilityCooldown;
-    private float secondAbilityCooldown;
-
-    private float atkColdownTimer;
+    private float basicAtkCooldownTimer;
     private float firstAbilityCooldownTimer;
     private float secondAbilityCooldownTimer;
 
-    private float currentHp;
-    public float CurrentHp {get => currentHp; }
-    private float currentMp;
-    public float CurrentMp { get => currentMp; }
+    public float BasicAttackTimer { get => basicAtkCooldownTimer; }
+    public float FirstSkillTimer { get => firstAbilityCooldownTimer; }
+    public float SecondSkillTimer { get => secondAbilityCooldownTimer; }
+
+    private int currentHp;
+    public int CurrentHp { get => currentHp; set => currentHp = value; }
+
+    private int currentMp;
+    public int CurrentMp { get => currentMp; set => currentMp = value; }
 
     public const int MinHP = 20;
     public const int MinMP = 20;
 
-    void Update()
-    {
-        if (BattleManager.Instance == null) return;
-        if (!BattleManager.Instance.FightIsOn) return;
-        atkColdownTimer -= Time.deltaTime;
-        firstAbilityCooldownTimer -= Time.deltaTime;
-        secondAbilityCooldownTimer -= Time.deltaTime;
+    public bool IsAlive => currentHp > 0;
 
-        if(atkColdownTimer <= 0)
-        {
-            ExecuteAutoAttack(GetRandomTarget());
-        }
-    }
-
-    public void InitStats()
+    public virtual void InitStats()
     {
         SetMaxHp();
         SetMaxMp();
@@ -97,109 +92,105 @@ public abstract class Battler : ScriptableObject
         SetCritChan();
         SetCritDmg();
         SetLoot();
+
+        currentHp = maxHp;
+        currentMp = maxMp;
+
+        basicAtkCooldownTimer = GetAtkCooldown();
     }
 
     float GetAtkCooldown()
     {
-        return Math.Max(2 - atkspd/10, 0.5f);
+        return Math.Max(5 - (atkspd / 20), 0.4f);
     }
 
-    float GetFirstAbilityCooldown()
-    {
-        return 5;
-    }
-
-    float GetSecondAbilityCooldown()
-    {
-        return 8;
-    }
-
-    protected virtual Battler GetRandomTarget(){
+    public virtual Battler GetRandomTarget() {
         return this;
     }
 
-    public virtual void ExecuteAutoAttack(Battler target)
-    {
-
-    }
-
-        float GetElementAffinityModifier(Element element)
+    public float GetElementAffinityModifier(Element element)
     {
         switch (element)
         {
             case Element.Fire:
-                return AffinityToElementalValue(fireAffinity);
+                return AffinityToElementalModifier(fireAffinity);
             case Element.Ice:
-                return AffinityToElementalValue(iceAffinity);
+                return AffinityToElementalModifier(iceAffinity);
             case Element.Thunder:
-                return AffinityToElementalValue(thunderAffinity);
+                return AffinityToElementalModifier(thunderAffinity);
             case Element.Earth:
-                return AffinityToElementalValue(earthAffinity);
+                return AffinityToElementalModifier(earthAffinity);
             case Element.Wind:
-                return AffinityToElementalValue(windAffinity);
+                return AffinityToElementalModifier(windAffinity);
             case Element.Darkness:
-                return AffinityToElementalValue(darknessAffinity);
+                return AffinityToElementalModifier(darknessAffinity);
             case Element.Light:
-                return AffinityToElementalValue(lightAffinity);
+                return AffinityToElementalModifier(lightAffinity);
+            case Element.None:
             default:
-                return 1.0f;
+                return 0.0f;
         }
     }
 
-    float GetStatusAilmentResistanceModifier(StatusAilment statusAilment)
+    public int GetStatusAilmentAffinityModifier(StatusAilment statusAilment)
     {
         switch (statusAilment)
         {
             case StatusAilment.Poison:
-                return AffinityToResistanceValue(poisonResistance);
+                return AffinityToStatusAilmentValue(poisonResistance);
             case StatusAilment.Stun:
-                return AffinityToResistanceValue(stunResistance);
+                return AffinityToStatusAilmentValue(stunResistance);
             case StatusAilment.Confusion:
-                return AffinityToResistanceValue(confusionResistance);
+                return AffinityToStatusAilmentValue(confusionResistance);
             case StatusAilment.Paralyse:
-                return AffinityToResistanceValue(paralyseResistance);
+                return AffinityToStatusAilmentValue(paralyseResistance);
             case StatusAilment.Bleed:
-                return AffinityToResistanceValue(bleedResistance);
+                return AffinityToStatusAilmentValue(bleedResistance);
+            case StatusAilment.None:
             default:
-                return 1.0f;
+                return 0;
         }
     }
 
-    float AffinityToElementalValue(Affinity affinity)
+    float AffinityToElementalModifier(Affinity affinity)
     {
         switch (affinity)
         {
-            case Affinity.Impressive:
-                return 1.5f;
-            case Affinity.High:
-                return 1.25f;
-            case Affinity.Neutral:
-                return 1.0f;
-            case Affinity.Low:
+            case Affinity.Natural:
                 return 0.75f;
-            case Affinity.Poor:
+            case Affinity.Impressive:
                 return 0.5f;
+            case Affinity.High:
+                return 0.25f;
+            case Affinity.Neutral:
+                return 0.0f;
+            case Affinity.Low:
+                return -0.25f;
+            case Affinity.Poor:
+                return -0.5f;
             default:
-                return 1.0f;
+                return 0.0f;
         }
     }
 
-    float AffinityToResistanceValue(Affinity affinity)
+    int AffinityToStatusAilmentValue(Affinity affinity)
     {
         switch (affinity)
         {
+            case Affinity.Natural:
+                return 100;
             case Affinity.Impressive:
-                return 1.0f;
+                return 80;
             case Affinity.High:
-                return .75f;
+                return 60;
             case Affinity.Neutral:
-                return .5f;
+                return 40;
             case Affinity.Low:
-                return 0.25f;
+                return 20;
             case Affinity.Poor:
-                return 0f;
+                return 0;
             default:
-                return .5f;
+                return 40;
         }
     }
 
@@ -207,33 +198,205 @@ public abstract class Battler : ScriptableObject
         maxHp = MinHP + toughness * 3 + bravery;
     }
     void SetMaxMp() {
-        maxHp = MinMP + spirituality * 3 + inteligence;
+        maxMp = MinMP + spirituality * 3 + inteligence;
     }
     void SetAtk() {
-        atk = bravery * 3;
+        atk = bravery;
     }
     void SetMag() {
-        mag = inteligence * 3 + faith + evilness;
+        mag = (inteligence + faith + evilness)/3;
     }
     void SetDef() {
-        def = toughness * 2 + evilness;
+        def = (toughness + evilness)/2;
     }
     void SetMdef() {
-        mdef = spirituality * 2 + faith;
+        mdef = (spirituality + faith)/2;
     }                  
     void SetEvas() {
-        evas = agility * 2 + luck;
+        evas = (agility + luck)/2;
     }
     void SetAtkspd() {
-        atkspd = agility * 3;
+        atkspd = agility;
     }
     void SetCritChan() {
-        critChan = dexterity * 3;
+        critChan = dexterity;
     }
     void SetCritDmg() { 
-        critDmg = dexterity * 3;
+        critDmg = dexterity;
     }
     void SetLoot() {
-        loot = luck * 3;
+        loot = luck;
     }
+
+    public List<Battler> DetermineActionTargets(List<Battler> charactersList, List<Battler> enemyList, TargetPattern pattern, TargetTeam targetTeam, int range, int maxQuantity)
+    {
+        List<Battler> listToSearch = new List<Battler>();
+        List<Battler> possibleTargetList = new List<Battler>();
+
+        switch (targetTeam)
+        {
+            case TargetTeam.Characters:
+                listToSearch.AddRange(charactersList);
+                break;
+            case TargetTeam.Enemies:
+                listToSearch.AddRange(enemyList);
+                break;
+            case TargetTeam.Both:
+                listToSearch.AddRange(charactersList);
+                listToSearch.AddRange(enemyList);
+                break;
+            case TargetTeam.None:
+            default:
+                return new List<Battler>();
+        }
+
+        switch (pattern)
+        {
+            case TargetPattern.FrontFirst:
+                possibleTargetList.AddRange(SearchNFirstBattlersFromList(listToSearch, range));
+                break;
+            case TargetPattern.BackFirst:
+                possibleTargetList.AddRange(SearchNLastBattlersFromList(listToSearch, range));
+                break;
+            case TargetPattern.MiddleFirst:
+                possibleTargetList.AddRange(SearchNMiddleBattlersFromList(listToSearch, range));
+                break;
+            case TargetPattern.Random:
+                possibleTargetList.AddRange(listToSearch);
+                break;
+            case TargetPattern.Everyone:
+                possibleTargetList.AddRange(listToSearch);
+                break;
+            case TargetPattern.None:
+            default:
+                return new List<Battler>();
+        }
+        return PickRandomNBattlersFromList(possibleTargetList, maxQuantity);
+    }
+
+    List<Battler> SearchNFirstBattlersFromList(List<Battler> list, int n)
+    {
+        if (n >= list.Count) return list;
+        List<Battler> possibleTargetList = new List<Battler>();
+
+        for (int battlerIndex = 0; battlerIndex < n && battlerIndex < list.Count; battlerIndex++)
+        {
+            possibleTargetList.Add(list[battlerIndex]);
+        }
+        return possibleTargetList;
+    }
+
+    List<Battler> SearchNLastBattlersFromList(List<Battler> list, int n)
+    {
+        if (n >= list.Count) return list;
+        List<Battler> possibleTargetList = new List<Battler>();
+
+        for (int battlerIndex = list.Count - 1; battlerIndex >= list.Count - n && battlerIndex > 0; battlerIndex--)
+        {
+            possibleTargetList.Add(list[battlerIndex]);
+        }
+        return possibleTargetList;
+    }
+
+    List<Battler> SearchNMiddleBattlersFromList(List<Battler> list, int n)
+    {
+        if (n >= list.Count) return list;
+        List<Battler> possibleTargetList = new List<Battler>();
+
+        //Retorna apenas o membro do meio da lista;
+        possibleTargetList.Add(list[(int)Mathf.Floor(list.Count / 2)]);
+        return possibleTargetList;
+    }
+
+    List<Battler> PickRandomNBattlersFromList(List<Battler> list, int n)
+    {
+        if (n >= list.Count) return list;
+        for (int elementsInList = list.Count; elementsInList > n; elementsInList = list.Count)
+        {
+            list.Remove(list[UnityEngine.Random.Range(0, list.Count)]);
+        }
+        return list;
+    }
+
+    public int GetDamageReductionBaseValue(Action damage)
+    {
+        switch (damage.type)
+        {
+            case DamageType.Physical:
+                return damage.value / (int)Math.Sqrt(damage.value) * def;
+            case DamageType.Magical:
+                return damage.value / (int)Math.Sqrt(damage.value) * mdef;
+            case DamageType.Hybrid:
+                return damage.value / (int)Math.Sqrt(damage.value) * ((def + mdef) / 2);
+            case DamageType.True:
+            default:
+                return damage.value;
+        }
+    }
+
+    public void ApplyStatusAilment(Action action)
+    {
+        if (UnityEngine.Random.Range(0, action.statusAilmentChance) > GetStatusAilmentAffinityModifier(action.statusAilment))
+        {
+
+        }
+    }
+
+    public static Color GetColorElementDamage(Element element)
+    {
+        return element switch
+        {
+            Element.None => GameManager.Instance.ColorIndex.noneColor,
+            Element.Fire => GameManager.Instance.ColorIndex.fireColor,
+            Element.Ice => GameManager.Instance.ColorIndex.iceColor,
+            Element.Thunder => GameManager.Instance.ColorIndex.thunderColor,
+            Element.Earth => GameManager.Instance.ColorIndex.earthColor,
+            Element.Wind => GameManager.Instance.ColorIndex.windColor,
+            Element.Light => GameManager.Instance.ColorIndex.lightColor,
+            Element.Darkness=> GameManager.Instance.ColorIndex.darknessColor,
+            _ => Color.black,
+        };
+    }
+
+    public void ReceiveAction(Action damage)
+    {
+        var finalDamage = (int)(GetDamageReductionBaseValue(damage) *
+            (1 - (2 * GetElementAffinityModifier(damage.element))));
+
+        CurrentHp -= finalDamage;
+
+        if (ReceiveDamageEvent != null)
+        {
+            ReceiveDamageEvent(finalDamage, GetColorElementDamage(damage.element));
+        }
+        ApplyStatusAilment(damage);
+    }
+
+    public int GetBaseDamageValue(DamageType damageType, int rawValue = 0)
+    {        // Damage Atribute
+        return damageType switch
+        {
+            DamageType.Physical => atk,
+            DamageType.Magical => mag,
+            DamageType.Hybrid => (int)((atk + mag)/2),
+            DamageType.True => rawValue,
+            _ => 0,
+        };
+    }
+
+    public bool SetDamageIsCritical()
+    {
+        return UnityEngine.Random.Range(0, 100) < critChan;
+    }
+
+    public int GetCriticalDamageMultiplier()
+    {
+        return (int)(1.5f + critDmg / 100);
+    }
+    
+    public abstract int SetBasicAttackDamage(Action action, HandEquipment weapon = null);
+    public abstract void ExecuteBasicAttack(List<Battler> charactersList, List<Battler> monstersList, bool isSubWeapon = false);
+    public abstract void ExecuteFirstSkill(List<Battler> charactersList, List<Battler> monstersList);
+    public abstract void ExecuteSecondSkill(List<Battler> charactersList, List<Battler> monstersList);
+
 }

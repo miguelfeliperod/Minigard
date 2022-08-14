@@ -19,24 +19,41 @@ MonoBehaviour:
   bodyColor: {r: 0.13349375, g: 0.6603774, b: 0.09656461, a: 1}
   sprite: {fileID: -2413806693520163455, guid: 39013e77c54f3454a8c7d89f51f4145d, type: 3}
   level: 1
-  toughness: 5
-  spirituality: 5
-  bravery: 5
-  inteligence: 5
-  faith: 5
-  evilness: 5
-  dexterity: 5
-  agility: 5
-  luck: 5
-  poisonResistance: 2
-  stunResistance: 2
+  maxHp: 30
+  maxMp: 40
+  atk: 2
+  mag: 2
+  def: 2
+  mdef: 2
+  evas: 2
+  atkspd: 2
+  critChan: 2
+  critDmg: 2
+  loot: 2
+  toughness: 4
+  spirituality: 4
+  bravery: 4
+  inteligence: 4
+  faith: 4
+  evilness: 4
+  dexterity: 4
+  agility: 4
+  luck: 4
+  poisonResistance: 0
+  stunResistance: 4
   confusionResistance: 2
-  paralyseResistance: 2
-  bleedResistance: 2
-  fireAffinity: 2
+  paralyseResistance: 4
+  bleedResistance: 4
+  fireAffinity: 0
   iceAffinity: 2
   thunderAffinity: 2
-  earthAffinity: 2
-  windAffinity: 2
+  earthAffinity: 3
+  windAffinity: 3
   darknessAffinity: 2
   lightAffinity: 2
+  pattern: 4
+  targetTeam: 1
+  range: 0
+  maxQuantity: 1
+  element: 0
+  statusAilment: 0

@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7abc57e3f0aa17e4e874cf1c2fafe4ea, type: 3}
+  m_Name: Rock
+  m_EditorClassIdentifier: 
+  battlerName: Rock
+  firstAbility: {fileID: 11400000, guid: c7bc704113489c14b8df2ad05b07822c, type: 2}
+  secondAbility: {fileID: 0}
+  thirdAbility: {fileID: 0}
+  bodyColor: {r: 0.5377358, g: 0.26642016, b: 0.16487184, a: 1}
+  sprite: {fileID: -2413806693520163455, guid: 39013e77c54f3454a8c7d89f51f4145d, type: 3}
+  level: 1
+  maxHp: 30
+  maxMp: 40
+  atk: 2
+  mag: 2
+  def: 2
+  mdef: 2
+  evas: 2
+  atkspd: 2
+  critChan: 2
+  critDmg: 2
+  loot: 2
+  toughness: 4
+  spirituality: 4
+  bravery: 4
+  inteligence: 4
+  faith: 4
+  evilness: 4
+  dexterity: 4
+  agility: 4
+  luck: 4
+  poisonResistance: 2
+  stunResistance: 2
+  confusionResistance: 2
+  paralyseResistance: 2
+  bleedResistance: 2
+  fireAffinity: 2
+  iceAffinity: 0
+  thunderAffinity: 4
+  earthAffinity: 5
+  windAffinity: 2
+  darknessAffinity: 2
+  lightAffinity: 2
+  pattern: 4
+  targetTeam: 1
+  range: 0
+  maxQuantity: 1
+  element: 0
+  statusAilment: 0

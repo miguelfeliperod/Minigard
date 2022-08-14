@@ -38,18 +38,18 @@ public class EditPartySlotManager : MonoBehaviour
     void UpdateRecruitsList()
     {
         ClearRecruits();
-        for(int i = 0; i < GameManager.Instance.partyManager.RecruitedList.Count; i++)
+        for(int recruitIndex = 0; recruitIndex < GameManager.Instance.partyManager.RecruitedList.Count; recruitIndex++)
         {
-            var character = GameManager.Instance.partyManager.RecruitedList[i];
+            var character = GameManager.Instance.partyManager.RecruitedList[recruitIndex];
             var recruit = Instantiate(RecruitListCharacter);
             recruit.character = character;
             recruit.name = character.battlerName;
             recruit.transform.SetParent(charactersList.transform);
             recruit.image.sprite = character.sprite;
             recruit.image.color = character.bodyColor;
-            recruit.rectTransform.anchoredPosition = new Vector2(40, -40) + new Vector2(150 * (i % 7), -50 - 200 * (i / 7));
+            recruit.rectTransform.anchoredPosition = new Vector2(40, -40) + new Vector2(150 * (recruitIndex % 7), -50 - 200 * (recruitIndex / 7));
 
-            recruit.number.text = i.ToString();
+            recruit.number.text = recruitIndex.ToString();
             recruit.recruitName.text = character.battlerName;
             recruit.job.text = character.firstClass.name.ToString();
             recruit.level.text = "Lvl: " + character.level.ToString();
@@ -62,9 +62,9 @@ public class EditPartySlotManager : MonoBehaviour
     }
     void ClearRecruits()
     {
-        for(int i = 0; i < charactersList.transform.childCount; i++)
+        for(int childIndex = 0; childIndex < charactersList.transform.childCount; childIndex++)
         {
-            Destroy(charactersList.transform.GetChild(i).gameObject);
+            Destroy(charactersList.transform.GetChild(childIndex).gameObject);
         }
         recruitsList.Clear();
     }
@@ -190,20 +190,20 @@ public class EditPartySlotManager : MonoBehaviour
 
     public void UpdatePartySlots()
     {
-        for (int i = 0; i < partyManager.PartyList.Count; i++)
+        for (int partySlotIndex = 0; partySlotIndex < partyManager.PartyList.Count; partySlotIndex++)
         {
-            if (i >= partyManager.CurrentPartySizeLimit)
+            if (partySlotIndex >= partyManager.CurrentPartySizeLimit)
             {
-                partySlotList[i].gameObject.SetActive(false);
+                partySlotList[partySlotIndex].gameObject.SetActive(false);
             }
-            else if (partyManager.PartyList[i].Character == null)
+            else if (partyManager.PartyList[partySlotIndex].Character == null)
             {
-                partySlotList[i].ResetSlot();
+                partySlotList[partySlotIndex].ResetSlot();
             }
             else {
-                partySlotList[i].gameObject.SetActive(true);
-                partySlotList[i].Character = partyManager.PartyList[i].Character;
-                partySlotList[i].RefreshTexts();
+                partySlotList[partySlotIndex].gameObject.SetActive(true);
+                partySlotList[partySlotIndex].Character = partyManager.PartyList[partySlotIndex].Character;
+                partySlotList[partySlotIndex].RefreshTexts();
             }
         }   
     }

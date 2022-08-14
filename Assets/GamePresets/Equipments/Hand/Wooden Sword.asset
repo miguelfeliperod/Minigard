@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Wooden Sword
   m_EditorClassIdentifier: 
   type: 1
-  equipmentName: 
+  equipmentName: Wooden Sword
   description: 
   hpBonus: 0
   mpBonus: 0
@@ -27,3 +27,4 @@ MonoBehaviour:
   lootBonus: 0
   sprite: {fileID: 0}
   element: 0
+  statusAilment: 0

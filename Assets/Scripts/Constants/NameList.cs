@@ -14,6 +14,7 @@ public static class NameList
         "Falco",
         "Henry",
         "Johnny",
+        "Kael",
         "King",
         "Lancelot",
         "Meu",

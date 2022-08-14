@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
 
     public SpritesReferences SpritesReferences;
 
+    public ColorIndex ColorIndex;
+
     void Awake()
     {
         if (Instance != null && Instance != this)

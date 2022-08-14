@@ -17,6 +17,47 @@ public class BattleManager : MonoBehaviour
     bool fightIsOn = false;
     public bool FightIsOn => fightIsOn;
 
+    public delegate void BattleState(bool state);
+    public static event BattleState BattleStateEvent;
+
+    List<Battler> charactersList = new List<Battler>();
+    List<Battler> enemiesList = new List<Battler>();
+
+    public List<Battler> CharactersList { get => charactersList; }
+    public List<Battler> EnemiesList { get => enemiesList; }
+
+    public bool IsAnyCharacterAlive
+    {
+        get
+        {
+            foreach (Battler character in charactersList)
+            {
+                if (character.IsAlive) return true;
+            }
+            return false;
+        }
+    }
+    public bool IsAnyEnemyAlive
+    {
+        get
+        {
+            foreach (Battler enemy in enemiesList)
+            {
+                if (enemy.IsAlive) return true;
+            }
+            return false;
+        }
+    }
+
+    bool IsBattleOver
+    {
+        get
+        {
+            return !IsAnyEnemyAlive || !IsAnyCharacterAlive;
+        }
+    }
+
+
     void Awake()
     {
         if (Instance != null && Instance != this)
@@ -37,15 +78,54 @@ public class BattleManager : MonoBehaviour
 
     void SetBattleInfo()
     {
-        for (int i = 0; i < Math.Min(characterSlotList.Count, partyManager.CountActiveCharacters); i++)
+        for (int characterSlotIndex = 0; characterSlotIndex < characterSlotList.Count; characterSlotIndex++)
         {
-            characterSlotList[i].Battler = partyManager.PartyList[i].Character;
-            characterSlotList[i].SetBattler();
+            if (partyManager.CountActiveCharacters > characterSlotIndex)
+                SetCharacterSlot(characterSlotIndex);
+            else 
+                DisableCharacterSlot(characterSlotIndex);
         }
-        for (int i = 0; i < Math.Min(enemySlotList.Count, battleInfo.enemiesList.Count); i++)
+        for (int enemySlotIndex = 0; enemySlotIndex < enemySlotList.Count; enemySlotIndex++)
         {
-            enemySlotList[i].Battler = battleInfo.enemiesList[i];
-            enemySlotList[i].SetBattler();
+            if (battleInfo.enemiesList.Count > enemySlotIndex)
+                SetEnemySlot(enemySlotIndex);
+            else 
+                DisableEnemySlot(enemySlotIndex);
+        }
+    }
+
+    void DisableCharacterSlot(Index slotIndex)
+    {
+        characterSlotList[slotIndex].DisableSlot();
+    }
+
+    void SetCharacterSlot(Index slotIndex) {
+        characterSlotList[slotIndex].gameObject.SetActive(true);
+        characterSlotList[slotIndex].Battler = partyManager.PartyList[slotIndex].Character;
+        characterSlotList[slotIndex].SetBattlerData();
+        charactersList.Add(characterSlotList[slotIndex].Battler);
+    }
+
+    void DisableEnemySlot(Index slotIndex)
+    {
+        enemySlotList[slotIndex].DisableSlot();
+    }
+
+    void SetEnemySlot(Index slotIndex)
+    {
+        enemySlotList[slotIndex].gameObject.SetActive(true);
+        enemySlotList[slotIndex].Battler = Instantiate(battleInfo.enemiesList[slotIndex]); 
+        enemySlotList[slotIndex].SetBattlerData();
+        enemiesList.Add(enemySlotList[slotIndex].Battler);
+    }
+
+    void LateUpdate()
+    {
+        if (IsBattleOver)
+        {
+            fightIsOn = false;
+            if (BattleStateEvent != null)
+                BattleStateEvent(false);
         }
     }
 
@@ -61,30 +141,32 @@ public class BattleManager : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
         countdown.text = "";
         fightIsOn = true;
-    }
-    
 
-    public Battler GetRandomEnemy() 
+        if (BattleStateEvent != null)
+            BattleStateEvent(true);
+        yield return null;
+    }
+
+    public Battler GetRandomEnemy()
     {
         List<Battler> aliveEnemies = new List<Battler>();
-        
-        foreach (Slot slot in enemySlotList) {
-            if (slot.Battler.CurrentHp > 0)
-                aliveEnemies.Add(slot.Battler);
+
+        foreach (Enemy enemy in enemiesList)
+        {
+            if (enemy.CurrentHp > 0)
+                aliveEnemies.Add(enemy);
         }
-        return aliveEnemies[UnityEngine.Random.Range(0, aliveEnemies.Count - 1)];
+        return aliveEnemies[UnityEngine.Random.Range(0, aliveEnemies.Count)];
     }
 
     public Battler GetRandomCharacter()
     {
         List<Battler> aliveCharacters = new List<Battler>();
 
-        foreach (Slot slot in characterSlotList)
+        foreach (Character character in charactersList)
         {
-            if(slot.Battler != null) {
-                if (slot.Battler.CurrentHp > 0)
-                    aliveCharacters.Add(slot.Battler);
-            }   
+                if (character.CurrentHp > 0)
+                    aliveCharacters.Add(character);
         }
         if (aliveCharacters.Count == 0) throw new System.Exception("Empty aliveCharacters List");
 
