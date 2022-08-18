@@ -1,16 +1,12 @@
 using UnityEngine;
 
-public abstract class Equipment : ScriptableObject
+public abstract class Equipment : Item
 {
     protected Equipment(EquipmentType type)
     {
         this.type = type;
     }
     [SerializeField] protected EquipmentType type;
-
-    [SerializeField] protected string equipmentName = "";
-
-    [SerializeField] protected string description = "";
 
     [SerializeField] protected float hpBonus = 0;
     [SerializeField] protected float mpBonus = 0;
@@ -22,7 +18,5 @@ public abstract class Equipment : ScriptableObject
     [SerializeField] protected float atkspdBonus = 0;
     [SerializeField] protected float critBonus = 0;
     [SerializeField] protected float lootBonus = 0;
-
-    [SerializeField] Sprite sprite;
 
 }

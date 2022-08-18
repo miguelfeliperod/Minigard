@@ -1,8 +1,10 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
     public PartyManager partyManager = new PartyManager();
+    public List<Item> inventory = new List<Item>();
     public static GameManager Instance;
 
     [SerializeField] ClassesList classList;
