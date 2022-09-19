@@ -200,33 +200,11 @@ public class Character : Battler
 
     void SetInitialEquipment()
     {
-        switch (UnityEngine.Random.Range(0, 5))
-        {
-            case 0:
-                mainHandEquipment = CreateInstance<Axe>();
-                mainHandEquipment.element = Element.Fire;
-                break;
-            case 1:
-                mainHandEquipment = CreateInstance<Bow>();
-                mainHandEquipment.element = Element.Ice;
-                break;
-            case 2:
-                mainHandEquipment = CreateInstance<Crossbow>();
-                mainHandEquipment.element = Element.Wind;
-                break;
-            case 3:
-                mainHandEquipment = CreateInstance<DualBlade>();
-                mainHandEquipment.element = Element.Thunder;
-                break;
-            case 4:
-                mainHandEquipment = CreateInstance<Lance>();
-                mainHandEquipment.element = Element.Earth;
-                break;
-            default:
-                mainHandEquipment = CreateInstance<Sword>();
-                mainHandEquipment.element = Element.Darkness;
-                break;
-        }
+        Equipment weapon;
+        var equipmentsList = GameManager.Instance.equipmentInventory;
+        do { weapon = equipmentsList[UnityEngine.Random.Range(0, equipmentsList.Count)];
+        } while (weapon is not HandEquipment);
+            mainHandEquipment = (HandEquipment)weapon;
        
         Debug.Log(battlerName + " took a " + mainHandEquipment.WeaponType.ToString() + " as weapon");
     }

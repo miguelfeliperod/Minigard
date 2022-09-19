@@ -2,11 +2,7 @@ using UnityEngine;
 
 public abstract class Equipment : Item
 {
-    protected Equipment(EquipmentType type)
-    {
-        this.type = type;
-    }
-    [SerializeField] protected EquipmentType type;
+    public abstract EquipmentType Type { get; }
 
     [SerializeField] protected float hpBonus = 0;
     [SerializeField] protected float mpBonus = 0;

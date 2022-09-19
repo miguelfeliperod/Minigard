@@ -4,7 +4,5 @@ public abstract class BodyEquipment : Equipment
 {
     [SerializeField] protected Element defensiveElement;
 
-    public BodyEquipment(EquipmentType equipmentType) : base(equipmentType)
-    {
-    }
+    public override EquipmentType Type => EquipmentType.Chest;
 }

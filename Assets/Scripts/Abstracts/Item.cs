@@ -2,9 +2,10 @@ using UnityEngine;
 
 public abstract class Item : ScriptableObject
 {
+    [SerializeField] public string itemName = "";
+    [SerializeField] public string description = "";
+    [SerializeField] public int price = 1;
 
-    [SerializeField] protected string itemName = "";
-    [SerializeField] protected string description = "";
-
-    [SerializeField] Sprite sprite;
+    [SerializeField] public Sprite sprite;
+    [SerializeField] public Color spriteColor;
 }
