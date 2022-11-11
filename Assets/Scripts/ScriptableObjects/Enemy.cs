@@ -37,7 +37,6 @@ public class Enemy : Battler
         foreach (Battler battler in targets)
         {
             battler.ReceiveAction(damage);
-            Debug.Log(this.battlerName + " attacked " + battler.battlerName + " for " + damage.value + " damage!");
         }
     }
 

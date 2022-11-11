@@ -15,6 +15,40 @@ MonoBehaviour:
   raceName: Dark Elf
   race: 3
   passive: {fileID: 0}
-  bodyColor1: {r: 0.5754717, g: 0.5076095, b: 0.5076095, a: 1}
-  bodyColor2: {r: 0.4433962, g: 0.42875576, b: 0.42875576, a: 1}
-  bodyColor3: {r: 0.6214887, g: 0.53733534, b: 0.6509434, a: 1}
+  bodyColorList:
+  - {r: 0.6906188, g: 0.58944464, b: 0.6981132, a: 1}
+  - {r: 0.69803923, g: 0.63755953, b: 0.5882353, a: 1}
+  - {r: 0.5849056, g: 0.5849056, b: 0.5849056, a: 1}
+  eyeColorList:
+  - {r: 0.2290432, g: 0, b: 0.31132078, a: 1}
+  - {r: 0.028301895, g: 0.028301895, b: 0.028301895, a: 1}
+  - {r: 0.1792453, g: 0.05956078, b: 0.009300464, a: 1}
+  hairColorList:
+  - {r: 0, g: 0, b: 0, a: 1}
+  - {r: 0.38679248, g: 0.32813108, b: 0.2280616, a: 1}
+  - {r: 0.25648332, g: 0.13465646, b: 0.3207547, a: 1}
+  eyeBackColor: {r: 0.74747354, g: 0.6539694, b: 0.8301887, a: 1}
+  maleBodyList:
+  - {fileID: 21300000, guid: f8883c0fbc56d8b4d987b2517e5750b5, type: 3}
+  maleHairList:
+  - {fileID: 21300000, guid: 718a1354ab87069408a9040e41fbcfe8, type: 3}
+  - {fileID: 21300000, guid: efa6f29f2e85e904e874b18510c84b0f, type: 3}
+  maleEyesList:
+  - {fileID: 21300000, guid: 6848f56ad9cd4874fb6cab2bd00ae604, type: 3}
+  femaleBodyList:
+  - {fileID: 21300000, guid: f8883c0fbc56d8b4d987b2517e5750b5, type: 3}
+  femaleHairList:
+  - {fileID: 21300000, guid: 718a1354ab87069408a9040e41fbcfe8, type: 3}
+  - {fileID: 21300000, guid: 2fb509caf63c1e64685fb8789c18553e, type: 3}
+  - {fileID: 21300000, guid: efa6f29f2e85e904e874b18510c84b0f, type: 3}
+  - {fileID: 21300000, guid: 868fcd9cd208ff949a879d1d27b5fcd4, type: 3}
+  femaleEyesList:
+  - {fileID: 21300000, guid: 6848f56ad9cd4874fb6cab2bd00ae604, type: 3}
+  bottonDressList:
+  - {fileID: 21300000, guid: 426536d158562ef4e8cb473f98bb839c, type: 3}
+  underDressListairList:
+  - {fileID: 21300000, guid: ebac4030d2cda1642a0c7a2b1f9015e1, type: 3}
+  topDressList:
+  - {fileID: 21300000, guid: e4870a22521cf5f47b7b32885a1582d2, type: 3}
+  footDressList:
+  - {fileID: 21300000, guid: 830f7ffdffc85964ba09cb29297d733b, type: 3}

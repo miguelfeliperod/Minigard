@@ -15,6 +15,36 @@ MonoBehaviour:
   raceName: Demon
   race: 8
   passive: {fileID: 0}
-  bodyColor1: {r: 1, g: 0.5613208, b: 0.5613208, a: 1}
-  bodyColor2: {r: 0.6792453, g: 0.2787469, b: 0.2787469, a: 1}
-  bodyColor3: {r: 0.5849056, g: 0.12967247, b: 0.12967247, a: 1}
+  bodyColorList:
+  - {r: 0.3207547, g: 0, b: 0, a: 1}
+  - {r: 0.6981132, g: 0.016464932, b: 0.016464932, a: 1}
+  - {r: 0.8301887, g: 0.30153078, b: 0.30153078, a: 1}
+  eyeColorList:
+  - {r: 0.2617247, g: 0.754717, b: 0.05339978, a: 1}
+  - {r: 0.7529412, g: 0.061666932, b: 0.054901976, a: 1}
+  - {r: 0.0754717, g: 0.0754717, b: 0.0754717, a: 1}
+  hairColorList:
+  - {r: 0, g: 0, b: 0, a: 1}
+  - {r: 0.2830189, g: 0.063544616, b: 0.006674973, a: 1}
+  - {r: 0.6132076, g: 0.12601171, b: 0, a: 1}
+  eyeBackColor: {r: 0.754717, g: 0.754717, b: 0.754717, a: 1}
+  maleBodyList:
+  - {fileID: 21300000, guid: f8883c0fbc56d8b4d987b2517e5750b5, type: 3}
+  maleHairList:
+  - {fileID: 21300000, guid: 72c8d53a49ea2a4438cff79c407a1af4, type: 3}
+  maleEyesList:
+  - {fileID: 21300000, guid: 6848f56ad9cd4874fb6cab2bd00ae604, type: 3}
+  femaleBodyList:
+  - {fileID: 21300000, guid: f8883c0fbc56d8b4d987b2517e5750b5, type: 3}
+  femaleHairList:
+  - {fileID: 21300000, guid: efa6f29f2e85e904e874b18510c84b0f, type: 3}
+  femaleEyesList:
+  - {fileID: 21300000, guid: 6848f56ad9cd4874fb6cab2bd00ae604, type: 3}
+  bottonDressList:
+  - {fileID: 21300000, guid: 426536d158562ef4e8cb473f98bb839c, type: 3}
+  underDressListairList:
+  - {fileID: 21300000, guid: ebac4030d2cda1642a0c7a2b1f9015e1, type: 3}
+  topDressList:
+  - {fileID: 21300000, guid: e4870a22521cf5f47b7b32885a1582d2, type: 3}
+  footDressList:
+  - {fileID: 21300000, guid: 830f7ffdffc85964ba09cb29297d733b, type: 3}

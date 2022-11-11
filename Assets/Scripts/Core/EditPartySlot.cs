@@ -47,17 +47,13 @@ public class EditPartySlot : MonoBehaviour
     public void RefreshTexts()
     {
         image.sprite = character.sprite;
-        image.color = character.bodyColor;
+        image.color = Color.white;
         nameText.text = character.battlerName;
-        jobText.text = character.firstClass.name;
-        lvlText.text = "Lvl:" + character.level.ToString();
     }
 
     public void ResetSlot()
     {
         nameText.text = "Empty";
-        jobText.text = "Empty";
-        lvlText.text = "Empty";
-        Image.color = Color.black;
+        image.color = Color.clear;
     }
 }

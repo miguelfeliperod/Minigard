@@ -47,7 +47,6 @@ public class Slot : MonoBehaviour
             return;
         }
         spriteRenderer.sprite = battler.sprite;
-        spriteRenderer.color = battler.bodyColor;
         uiBattlerStats.gameObject.SetActive(true);
         hasSubWeapon = battler.HasSubWeapon();
         uiBattlerStats.SetInterface(battler);

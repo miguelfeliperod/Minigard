@@ -15,7 +15,7 @@ public class UIBattlerStats : MonoBehaviour
     public void SetInterface(Battler battler)
     {
         this.battler = battler;
-        battlerFace.color = battler.bodyColor;
+        battlerFace.sprite = battler.sprite;
         battlerNameText.text = battler.battlerName;
     }
 

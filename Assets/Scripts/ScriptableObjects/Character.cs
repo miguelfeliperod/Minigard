@@ -5,6 +5,8 @@ using System;
 [CreateAssetMenu(fileName = "Character", menuName = "ScriptableObjects/Battle/Character")]
 public class Character : Battler
 {
+    GameManager gameManager;
+
     const int MinStatsPointsToDistribute = 1;
     const int MaxStatsPointsToDistribute = 11;
     const int InitialLevel = 1;
@@ -33,6 +35,10 @@ public class Character : Battler
     public bool canEquipAccessoryTwo = false;
     public bool canEquipBothHands = false;
 
+    private void Awake()
+    {
+        gameManager = GameManager.Instance;
+    }
     public override bool HasSubWeapon()
     {
         if(subHandEquipment != null)
@@ -59,37 +65,23 @@ public class Character : Battler
     public Proficiency shieldProficiency = Proficiency.F;
     public Proficiency greatShieldProficiency = Proficiency.F;
 
-    void GenerateSeed()
+    string GetNewSeed()
     {
         seed = "";
         int seedRange = UnityEngine.Random.Range(4, 16);
         for (int seedCharacterIndex = 0; seedCharacterIndex < seedRange; seedCharacterIndex++)
             seed += glyphs[UnityEngine.Random.Range(0, glyphs.Length)];
+        return seed;
     }
 
-    public void RandomizeCharacter()
+    public void RandomizeCharacter(string newSeed = "")
     {
-        GenerateSeed();
+        if(newSeed == "")
+            newSeed = GetNewSeed();
+        seed = newSeed;
         UnityEngine.Random.InitState(seed.GetHashCode());
 
-        RandomizeRaceColorAndGenre();
-        RandomizeName();
-        RandomizeClass();
-        RandomizeNaturalStats();
-        RandomizeStatusResistances();
-        RandomizeElementalAfinities();
-        RandomizeWeaponProficiencies();
-        RandomizeWeaponProficiencies();
-        SetInitialEquipment();
-
-    }
-
-    public void RandomizeCharacter(string seed)
-    {
-        this.seed = seed;
-        UnityEngine.Random.InitState(seed.GetHashCode());
-
-        RandomizeRaceColorAndGenre();
+        RandomizeRaceAndGenre();
         RandomizeName();
         RandomizeClass();
         RandomizeNaturalStats();
@@ -97,6 +89,7 @@ public class Character : Battler
         RandomizeElementalAfinities();
         RandomizeWeaponProficiencies();
         SetInitialEquipment();
+        RandomizeCharacterSprite();
     }
 
     void RandomizeName()
@@ -116,12 +109,10 @@ public class Character : Battler
         secondAbility = firstClass.SecondAbilityChoice;
     }
 
-    void RandomizeRaceColorAndGenre()
+    void RandomizeRaceAndGenre()
     {
         var racesList = GameManager.Instance.RaceList.racesList;
         race = racesList[UnityEngine.Random.Range(0, racesList.Count)];
-        
-        bodyColor = race.GetRandomBodyColor();
         
         genre = UnityEngine.Random.value < 0.5 ? Genre.Male : Genre.Female;
         
@@ -205,8 +196,6 @@ public class Character : Battler
         do { weapon = equipmentsList[UnityEngine.Random.Range(0, equipmentsList.Count)];
         } while (weapon is not HandEquipment);
             mainHandEquipment = (HandEquipment)weapon;
-       
-        Debug.Log(battlerName + " took a " + mainHandEquipment.WeaponType.ToString() + " as weapon");
     }
 
     Affinity GetRandomElementAffinity()
@@ -357,7 +346,6 @@ public class Character : Battler
         foreach(Enemy enemy in targets)
         {
             enemy.ReceiveAction(damage);
-            Debug.Log(this.battlerName + " attacked " + enemy.battlerName + " for " + damage.value + " damage!");
         }
     }
 
@@ -386,5 +374,116 @@ public class Character : Battler
         return  (int)(totalDamage * totalDamage
             * (1 + GetElementAffinityModifier(damage.element))
             * GetWeaponTypeProficiencyModifier(weapon.WeaponType));
+    }
+
+    public void RandomizeCharacterSprite()
+    {
+        List<Texture2D> textureList = new List<Texture2D>(){
+        GetRandomBodySprite(),
+        GetRandomEyesSprite(),
+        GetRandomUnderDressSprite(),
+        GetRandomBottomDressSprite(),
+        GetRandomFootDressSprite(),
+        GetRandomTopDressSprite(),
+        GetRandomHairSprite()
+    };
+        sprite = BattlerSpriteMerger.GetMergedSprites(textureList);
+    }
+
+    Texture2D GetRandomBodySprite()
+    {
+        var randomColor = race.GetRandomBodyColor();
+        var texture = genre == Genre.Male ? race.GetRandomMaleBody() : race.GetRandomFemaleBody();
+
+        return ApplyColorToSprite(texture, randomColor);
+    }
+    Texture2D GetRandomEyesSprite()
+    {
+        var randomColor = race.GetRandomEyeColor();
+        var texture = genre == Genre.Male ? race.GetRandomMaleEyes() : race.GetRandomFemaleEyes();
+        return ApplyColorToSprite(texture, randomColor, true);
+    }
+    Texture2D GetRandomUnderDressSprite()
+    {
+        List<Color> colorList = new List<Color>() { Color.blue, Color.red, Color.yellow, Color.green, Color.cyan, Color.magenta, Color.white };
+        var randomColor = colorList[UnityEngine.Random.Range(0, colorList.Count)];
+        var texture = race.GetRandomUnderDress();
+        return ApplyColorToSprite(texture, randomColor);
+    }
+    Texture2D GetRandomBottomDressSprite()
+    {
+        List<Color> colorList = new List<Color>() { Color.blue, Color.red, Color.yellow, Color.green, Color.cyan, Color.magenta, Color.white };
+        var randomColor = colorList[UnityEngine.Random.Range(0, colorList.Count)];
+        var texture = race.GetRandomBottomDress();
+        return ApplyColorToSprite(texture, randomColor);
+    }
+    Texture2D GetRandomFootDressSprite()
+    {
+        List<Color> colorList = new List<Color>() { Color.blue, Color.red, Color.yellow, Color.green, Color.cyan, Color.magenta, Color.white };
+        var randomColor = colorList[UnityEngine.Random.Range(0, colorList.Count)];
+        var texture = race.GetRandomFootDress();
+        return ApplyColorToSprite(texture, randomColor);
+    }
+    Texture2D GetRandomTopDressSprite()
+    {
+        List<Color> colorList = new List<Color>() { Color.blue, Color.red, Color.yellow, Color.green, Color.cyan, Color.magenta, Color.white };
+        var randomColor = colorList[UnityEngine.Random.Range(0, colorList.Count)];
+        var texture = race.GetRandomTopDress();
+        return ApplyColorToSprite(texture, randomColor);
+    }
+    Texture2D GetRandomHairSprite()
+    {
+        var randomColor = race.GetRandomHairColor();
+        var texture = genre == Genre.Male ? race.GetRandomMaleHair() : race.GetRandomFemaleHair();
+        return ApplyColorToSprite(texture, randomColor);
+    }
+
+    Texture2D ApplyColorToSprite(Texture2D texture, Color filterColor, bool isEye = false)
+    {
+        var newTexture = new Texture2D(texture.width, texture.height);
+        var pixelColors = texture.GetPixels();
+        if (!isEye)
+        {
+            for (var pixel = 0; pixel < pixelColors.Length; pixel++)
+            {
+                if (pixelColors[pixel].a < 0.1f)
+                {
+                    pixelColors[pixel] = new Color(1, 1, 1, 0);
+                }
+                else
+                {
+                    pixelColors[pixel] = new Color(
+                    pixelColors[pixel].r * filterColor.r,
+                    pixelColors[pixel].g * filterColor.g,
+                    pixelColors[pixel].b * filterColor.b
+                    );
+                }
+            }
+        }
+        else
+        {
+            for (var pixel = 0; pixel < pixelColors.Length; pixel++)
+            {
+                if (pixelColors[pixel].a < 0.1f)
+                {
+                    pixelColors[pixel] = new Color(1, 1, 1, 0);
+                }
+                else if (pixelColors[pixel] == Color.white) {
+                    pixelColors[pixel] = race.GetEyeBackColor();
+                }
+                else
+                {
+                    pixelColors[pixel] = new Color(
+                    pixelColors[pixel].r * filterColor.r,
+                    pixelColors[pixel].g * filterColor.g,
+                    pixelColors[pixel].b * filterColor.b
+                    );
+                }
+            }
+        }
+
+        newTexture.SetPixels(pixelColors);
+        newTexture.Apply();
+        return newTexture;
     }
 }

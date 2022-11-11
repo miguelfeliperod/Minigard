@@ -46,7 +46,6 @@ public class EditPartySlotManager : MonoBehaviour
             recruit.name = character.battlerName;
             recruit.transform.SetParent(charactersList.transform);
             recruit.image.sprite = character.sprite;
-            recruit.image.color = character.bodyColor;
             recruit.rectTransform.anchoredPosition = new Vector2(40, -40) + new Vector2(150 * (recruitIndex % 7), -50 - 200 * (recruitIndex / 7));
 
             recruit.number.text = recruitIndex.ToString();
@@ -56,9 +55,6 @@ public class EditPartySlotManager : MonoBehaviour
 
             recruitsList.Add(recruit);
         }
-        var recTransform = charactersList.GetComponent<Image>().rectTransform;
-        recTransform.sizeDelta = new Vector2(recTransform.sizeDelta.x, Math.Max(630,
-            (GameManager.Instance.partyManager.RecruitedList.Count / 7 + 1) * 205));
     }
     void ClearRecruits()
     {

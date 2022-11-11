@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -38,12 +39,17 @@ public class InventoryManager : MonoBehaviour
     public TextMeshProUGUI PriceText { get => priceText; }
     [SerializeField] TextMeshProUGUI descriptionText;
     public TextMeshProUGUI DescriptionText { get => descriptionText; }
+    
+    [SerializeField] TextMeshProUGUI walletText;
+    [SerializeField] TextMeshProUGUI sellValueText;
 
     [SerializeField] TextMeshProUGUI itensCount;
     [SerializeField] Slider itemCountSlider;
     [SerializeField] Button minusButton;
     [SerializeField] Button plusButton;
     [SerializeField] Button sellButton;
+
+    int currentSellValue;
 
     public ItemList selectedItem = null;
     public ItemsTabs currentTab = ItemsTabs.Collectable;
@@ -54,6 +60,7 @@ public class InventoryManager : MonoBehaviour
         DisableSlider();
         selectedItem = null;
         ClearInfo();
+        UpdateWalletText();
     }
 
     void RefreshCurrentTab()
@@ -87,6 +94,7 @@ public class InventoryManager : MonoBehaviour
         itemCountSlider.gameObject.SetActive(false);
         minusButton.gameObject.SetActive(false);
         plusButton.gameObject.SetActive(false);
+        sellValueText.gameObject.SetActive(false);
     }
 
     public void EnableSlider()
@@ -96,11 +104,13 @@ public class InventoryManager : MonoBehaviour
         minusButton.gameObject.SetActive(true);
         plusButton.gameObject.SetActive(true);
         sellButton.gameObject.SetActive(true);
+        sellValueText.gameObject.SetActive(true);
     }
 
     public void EnableSellButton()
     {
         sellButton.gameObject.SetActive(true);
+        sellValueText.gameObject.SetActive(true);
     }
 
     void DisableAllBG()
@@ -253,6 +263,7 @@ public class InventoryManager : MonoBehaviour
             itemCountSlider.maxValue = collectable.quantity;
         }
         RefreshItemCounter();
+        RefreshSellValue();
     }
 
     public void OnPlusButtonClick()
@@ -280,22 +291,44 @@ public class InventoryManager : MonoBehaviour
         if (selectedItem.item is Collectable)
         {
             var collectable = selectedItem.item as Collectable;
-            GameManager.Instance.goldAmount += (int)(0.3f * collectable.price * itemCountSlider.value);
+            GameManager.Instance.goldAmount += currentSellValue;
             collectable.quantity -= (int)itemCountSlider.value;
         }
         else if (selectedItem.item is Equipment)
         {
             var equipment = selectedItem.item as Equipment;
-            GameManager.Instance.goldAmount += (int)(0.3f * equipment.price);
+            GameManager.Instance.goldAmount += currentSellValue;
             GameManager.Instance.equipmentInventory.Remove(equipment);
         }
         else { }
         RefreshCurrentTab();
         RefreshSlider();
+        UpdateWalletText();
     }
 
     public void RefreshItemCounter()
     {
         itensCount.text = itemCountSlider.value.ToString();
+    }
+
+    public void RefreshSellValue()
+    {
+        if (selectedItem.item is Collectable)
+        {
+            var collectable = selectedItem.item as Collectable;
+            currentSellValue = (int)(0.3f * collectable.price * itemCountSlider.value);
+            sellValueText.text = currentSellValue + "g";
+        }
+        else if (selectedItem.item is Equipment)
+        {
+            var equipment = selectedItem.item as Equipment;
+            currentSellValue = (int)(0.3f * equipment.price);
+            sellValueText.text = currentSellValue + "g";
+        }
+    }
+
+    void UpdateWalletText()
+    {
+        walletText.text = GameManager.Instance.goldAmount.ToString() + "g";
     }
 }

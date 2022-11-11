@@ -15,6 +15,43 @@ MonoBehaviour:
   raceName: Orc
   race: 4
   passive: {fileID: 0}
-  bodyColor1: {r: 0.18600924, g: 0.41509432, b: 0.22400545, a: 1}
-  bodyColor2: {r: 0.5731577, g: 0.754717, b: 0.6039305, a: 1}
-  bodyColor3: {r: 0.41714135, g: 0.8113208, b: 0.6376491, a: 1}
+  bodyColorList:
+  - {r: 0, g: 0.7735849, b: 0.10217165, a: 1}
+  - {r: 0.0731132, g: 0.5, b: 0.1294536, a: 1}
+  - {r: 0.044143822, g: 0.3018868, b: 0.077248424, a: 1}
+  - {r: 0.099260174, g: 0.23584908, b: 0.08121218, a: 1}
+  eyeColorList:
+  - {r: 0.3962264, g: 0.123623036, b: 0.072890714, a: 1}
+  - {r: 0.5660378, g: 0.33604792, b: 0.22160912, a: 1}
+  - {r: 0.1986917, g: 0.24973077, b: 0.8962264, a: 1}
+  - {r: 0.18601625, g: 0.7735849, b: 0.16420436, a: 1}
+  - {r: 0.09433961, g: 0.09433961, b: 0.09433961, a: 1}
+  hairColorList:
+  - {r: 0.0754717, g: 0.0754717, b: 0.0754717, a: 1}
+  - {r: 0.3584906, g: 0.10453479, b: 0.025364896, a: 1}
+  - {r: 0.6132076, g: 0.020247431, b: 0.03162709, a: 1}
+  eyeBackColor: {r: 1, g: 1, b: 1, a: 1}
+  maleBodyList:
+  - {fileID: 21300000, guid: f8883c0fbc56d8b4d987b2517e5750b5, type: 3}
+  maleHairList:
+  - {fileID: 21300000, guid: 72c8d53a49ea2a4438cff79c407a1af4, type: 3}
+  - {fileID: 21300000, guid: fb4721175d4f6d141b8b387775fcb721, type: 3}
+  - {fileID: 21300000, guid: 7fcc7e5c93c4d8e488c004299bbd5a85, type: 3}
+  maleEyesList:
+  - {fileID: 21300000, guid: 6848f56ad9cd4874fb6cab2bd00ae604, type: 3}
+  femaleBodyList:
+  - {fileID: 21300000, guid: f8883c0fbc56d8b4d987b2517e5750b5, type: 3}
+  femaleHairList:
+  - {fileID: 21300000, guid: efa6f29f2e85e904e874b18510c84b0f, type: 3}
+  - {fileID: 21300000, guid: 7fcc7e5c93c4d8e488c004299bbd5a85, type: 3}
+  - {fileID: 21300000, guid: 53375efed0c45f541b72ea44c1b36eae, type: 3}
+  femaleEyesList:
+  - {fileID: 21300000, guid: 6848f56ad9cd4874fb6cab2bd00ae604, type: 3}
+  bottonDressList:
+  - {fileID: 21300000, guid: 426536d158562ef4e8cb473f98bb839c, type: 3}
+  underDressListairList:
+  - {fileID: 21300000, guid: ebac4030d2cda1642a0c7a2b1f9015e1, type: 3}
+  topDressList:
+  - {fileID: 21300000, guid: e4870a22521cf5f47b7b32885a1582d2, type: 3}
+  footDressList:
+  - {fileID: 21300000, guid: 830f7ffdffc85964ba09cb29297d733b, type: 3}

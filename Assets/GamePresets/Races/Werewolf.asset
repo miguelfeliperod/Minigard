@@ -15,6 +15,38 @@ MonoBehaviour:
   raceName: Werewolf
   race: 6
   passive: {fileID: 0}
-  bodyColor1: {r: 0.4339623, g: 0.4339623, b: 0.4339623, a: 1}
-  bodyColor2: {r: 0.5849056, g: 0.37279367, b: 0.31176573, a: 1}
-  bodyColor3: {r: 0.20754719, g: 0.20754719, b: 0.20754719, a: 1}
+  bodyColorList:
+  - {r: 0.3584906, g: 0.3584906, b: 0.3584906, a: 1}
+  - {r: 0.4339623, g: 0.13159373, b: 0.01842292, a: 1}
+  - {r: 0.103773594, g: 0.103773594, b: 0.103773594, a: 1}
+  eyeColorList:
+  - {r: 0.6792453, g: 0.20009261, b: 0.05446779, a: 1}
+  - {r: 1, g: 0.86192036, b: 0.3537736, a: 1}
+  - {r: 0.8773585, g: 0, b: 0.017181927, a: 1}
+  - {r: 0.9339623, g: 0.9339623, b: 0.9339623, a: 1}
+  hairColorList:
+  - {r: 0, g: 0, b: 0, a: 1}
+  - {r: 0.4811321, g: 0.08738067, b: 0, a: 1}
+  - {r: 0.2830189, g: 0.2830189, b: 0.2830189, a: 1}
+  eyeBackColor: {r: 0, g: 0, b: 0, a: 1}
+  maleBodyList:
+  - {fileID: 21300000, guid: f8883c0fbc56d8b4d987b2517e5750b5, type: 3}
+  maleHairList:
+  - {fileID: 21300000, guid: 72c8d53a49ea2a4438cff79c407a1af4, type: 3}
+  maleEyesList:
+  - {fileID: 21300000, guid: 6848f56ad9cd4874fb6cab2bd00ae604, type: 3}
+  femaleBodyList:
+  - {fileID: 21300000, guid: f8883c0fbc56d8b4d987b2517e5750b5, type: 3}
+  femaleHairList:
+  - {fileID: 21300000, guid: 6e915c689ff00274e9e22e2434693e94, type: 3}
+  - {fileID: 21300000, guid: 718a1354ab87069408a9040e41fbcfe8, type: 3}
+  femaleEyesList:
+  - {fileID: 21300000, guid: 6848f56ad9cd4874fb6cab2bd00ae604, type: 3}
+  bottonDressList:
+  - {fileID: 21300000, guid: 426536d158562ef4e8cb473f98bb839c, type: 3}
+  underDressListairList:
+  - {fileID: 21300000, guid: ebac4030d2cda1642a0c7a2b1f9015e1, type: 3}
+  topDressList:
+  - {fileID: 21300000, guid: e4870a22521cf5f47b7b32885a1582d2, type: 3}
+  footDressList:
+  - {fileID: 21300000, guid: 830f7ffdffc85964ba09cb29297d733b, type: 3}

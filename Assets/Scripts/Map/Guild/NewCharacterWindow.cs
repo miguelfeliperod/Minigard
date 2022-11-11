@@ -95,7 +95,6 @@ public class NewCharacterWindow : MonoBehaviour
         ability2.text = newCharacter.secondAbility.name;
 
         image.sprite = newCharacter.sprite;
-        image.color = newCharacter.bodyColor;
         nameImage.text = newCharacter.battlerName?.ToString();
         raceImage.text = newCharacter.race.name;
         jobImage.text = newCharacter.firstClass.name;

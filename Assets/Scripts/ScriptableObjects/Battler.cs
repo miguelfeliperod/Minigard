@@ -5,13 +5,14 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Battler", menuName = "ScriptableObjects/Battle/Battler")]
 public abstract class Battler : ScriptableObject
 {
+    GameManager gameManager;
+
     public string battlerName;
 
     public Skill firstAbility;
     public Skill secondAbility;
     public Skill thirdAbility;
 
-    public Color bodyColor;
     public Sprite sprite;
 
     public delegate void ReceiveDamageDelegate(int value, Color color);
@@ -78,7 +79,6 @@ public abstract class Battler : ScriptableObject
     public const int MinMP = 20;
 
     public bool IsAlive => currentHp > 0;
-
     public virtual void InitStats()
     {
         SetMaxHp();
@@ -157,7 +157,7 @@ public abstract class Battler : ScriptableObject
         switch (affinity)
         {
             case Affinity.Natural:
-                return 0.75f;
+                return 0.6f;
             case Affinity.Impressive:
                 return 0.5f;
             case Affinity.High:
@@ -358,18 +358,18 @@ public abstract class Battler : ScriptableObject
         };
     }
 
-    public void ReceiveAction(Action damage)
+    public void ReceiveAction(Action action)
     {
-        var finalDamage = (int)(GetDamageReductionBaseValue(damage) *
-            (1 - (2 * GetElementAffinityModifier(damage.element))));
+        var finalDamage = (int)(GetDamageReductionBaseValue(action) *
+            (1 - (2 * GetElementAffinityModifier(action.element))));
 
         CurrentHp -= finalDamage;
 
         if (ReceiveDamageEvent != null)
         {
-            ReceiveDamageEvent(finalDamage, GetColorElementDamage(damage.element));
+            ReceiveDamageEvent(finalDamage, GetColorElementDamage(action.element));
         }
-        ApplyStatusAilment(damage);
+        ApplyStatusAilment(action);
     }
 
     public int GetBaseDamageValue(DamageType damageType, int rawValue = 0)

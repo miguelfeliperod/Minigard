@@ -42,7 +42,7 @@ public class ItemList : MonoBehaviour
         }
         inventoryManager.EnableSellButton();
         inventoryManager.NameText.text = item.itemName;
-        inventoryManager.PriceText.text = item.price.ToString();
+        inventoryManager.PriceText.text = item.price.ToString() + "g";
         inventoryManager.DescriptionText.text = item.description;
 
         inventoryManager.RefreshSlider();

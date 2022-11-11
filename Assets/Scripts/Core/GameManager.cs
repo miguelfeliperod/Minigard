@@ -42,9 +42,8 @@ public class GameManager : MonoBehaviour
     {
         for (int itemIndex = 0; itemIndex < collectableList.collectables.Count; itemIndex++)
         {
-            collectableInventory.Add(collectableList.collectables[itemIndex]);
+            collectableInventory.Add(Instantiate(collectableList.collectables[itemIndex]));
             inventoryDictionary.Add(collectableList.collectables[itemIndex].itemName, itemIndex);
-            print("Name: " + inventoryDictionary[collectableInventory[itemIndex].itemName] + "Index: " + itemIndex);
         }
     }
 }

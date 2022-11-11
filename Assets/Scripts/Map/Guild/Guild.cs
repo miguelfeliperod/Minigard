@@ -25,7 +25,6 @@ public class Guild : MonoBehaviour
         character = ScriptableObject.CreateInstance<Character>();
         character.RandomizeCharacter();
         character.name = character.battlerName;
-        character.sprite = GameManager.Instance.SpritesReferences.allCharacterBodySprite;
         recruitWindow.UploadCharacterInfosClick(character);
     }
 
